@@ -1,15 +1,25 @@
 <template>
   <div class="container">
-    <NameCard />
+    <div class="container-left">
+      <NameCard />
+    </div>
+    <div class="container-right">
+      <Nav />
+      <Latest />
+    </div>
   </div>
 </template>
 
 <script>
 import NameCard from '@/components/NameCard'
+import Nav from '@/components/Nav'
+import Latest from '@/components/Latest'
 
 export default {
   components: {
-    NameCard
+    NameCard,
+    Nav,
+    Latest
   }
 }
 </script>
@@ -24,6 +34,11 @@ export default {
   justify-content flex-start
   align-items left
   text-align left
+  .container-left
+    padding 15px
+  .container-right
+    width 100%
+    padding 15px
 
 .title
   font-family 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
@@ -43,4 +58,10 @@ export default {
 
 .links
   padding-top 15px
+
+a
+  text-decoration none
+  color #333
+  &:visited
+    color #333
 </style>

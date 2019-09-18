@@ -22,7 +22,7 @@ export default {
 
 <style lang="stylus" scoped>
 .namecard-container
-  padding 15px
+  padding 0 15px
   .namecard-avatar
     margin-bottom 20px
   .line-name
