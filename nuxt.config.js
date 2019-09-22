@@ -41,7 +41,8 @@ module.exports = {
   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/style-resources'
   ],
   /*
   ** Axios module configuration
@@ -59,5 +60,10 @@ module.exports = {
     */
     extend (config, ctx) {
     }
-  }
+  },
+  styleResources: {
+    stylus: [
+      'assets/common.styl'
+    ]
+   }
 }

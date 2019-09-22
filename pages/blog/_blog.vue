@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="blogpage-container">
     <Nav />
     <Blog
       :title="title"
@@ -14,6 +14,7 @@ import Nav from '@/components/Nav'
 import Blog from '@/components/Blog'
 
 export default {
+  layout: 'blog-view',
   components: {
     Nav,
     Blog
