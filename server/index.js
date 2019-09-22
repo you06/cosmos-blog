@@ -1,6 +1,7 @@
 const Koa = require('koa')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
+const Router = require('./router')
 
 const app = new Koa()
 
@@ -25,6 +26,10 @@ async function start () {
     await nuxt.ready()
   }
 
+  const router = Router({})
+  app
+    .use(router.routes())
+    .use(router.allowedMethods())
   app.use((ctx) => {
     ctx.status = 200
     ctx.respond = false // Bypass Koa's built-in response handling

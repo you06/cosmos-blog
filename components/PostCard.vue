@@ -1,5 +1,5 @@
 <template>
-  <div class="postcard">
+  <nuxt-link to="/blog/hello-world" class="postcard">
     <h2 class="postcard-title">
       {{ title }}
     </h2>
@@ -9,7 +9,7 @@
     <p>
       {{ content }}
     </p>
-  </div>
+  </nuxt-link>
 </template>
 
 <script>
@@ -31,7 +31,7 @@ export default {
     }
   },
   computed: {
-    dateStr () {
+    dateStr() {
       return formatDate(this.date)
     }
   }
@@ -44,6 +44,7 @@ export default {
   padding 15px
   border-radius 5px
   border 1px solid #eee
+  display block
   cursor pointer
   transition 0.2s ease-in-out
   &:first-child

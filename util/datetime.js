@@ -1,4 +1,4 @@
-export const formatDate = function (t) {
+export const formatDate = function(t) {
   const year = t.getFullYear()
   const month = t.getMonth() + 1
   const date = t.getDate()
