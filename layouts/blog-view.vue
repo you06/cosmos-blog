@@ -1,13 +1,29 @@
 <template>
   <div class="layout-container">
-    <nuxt />
+    <div class="layout-body">
+      <nuxt />
+    </div>
+    <Footer />
   </div>
 </template>
 
-<style lang="stylus">
+<script>
+import Footer from '@/components/Footer'
+
+export default {
+  layout: 'base-nav',
+  components: {
+    Footer
+  }
+}
+</script>
+
+<style lang="stylus" scoped>
 .layout-container
-  margin 0 auto
-  min-height 100vh
-  max-width 1400px
-  padding 0 40px
+  width 100%
+  .layout-body
+    margin 0 auto
+    min-height 100vh
+    max-width 1400px
+    padding 20px 40px
 </style>

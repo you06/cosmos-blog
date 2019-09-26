@@ -1,13 +1,13 @@
 <template>
   <div>
-    <h1>
+    <h1 class="blog-title">
       {{ title }}
     </h1>
-    <span>
+    <span class="blog-date">
       {{ dateStr }}
     </span>
     <!-- eslint-disable-next-line vue/no-v-html -->
-    <div v-html="content" />
+    <div class="blog-content" v-html="content" />
   </div>
 </template>
 
@@ -37,3 +37,14 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus" scoped>
+.blog-title
+  padding-top 20px
+  color #333
+.blog-date
+  color #666
+  transition 0.2s ease-in-out
+.blog-content
+  padding-top 30px
+</style>

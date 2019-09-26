@@ -1,3 +1,4 @@
+const config = require('./config.json')
 
 module.exports = {
   mode: 'universal',
@@ -42,6 +43,7 @@ module.exports = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/auth',
     '@nuxtjs/style-resources'
   ],
   /*
@@ -65,5 +67,23 @@ module.exports = {
     stylus: [
       'assets/common.styl'
     ]
-   }
+  },
+  auth: {
+    redirect: {
+      login: '/admin/login',
+      logout: '/',
+      home: '/'
+      // callback: '/admin'
+    },
+    watchLoggedIn: true,
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: '/auth/login', method: 'post', propertyName: 'data.token' },
+          logout: { url: '/auth/logout', method: 'post' },
+          user: { url: '/auth/user', method: 'get', propertyName: 'data.user' }
+        }
+      }
+    }
+  }
 }

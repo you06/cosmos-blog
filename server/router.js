@@ -12,6 +12,10 @@ function initRoute(cfg) {
     ctx.body = 'pong!'
   })
 
+  // admin auth
+  router.get('/auth/user', ctl.auth.user)
+  router.post('/auth/login', ctl.auth.login)
+
   router.get('/blog/:key', ctl.blog.getBlog)
 
   return router
