@@ -1,9 +1,9 @@
 const Auth = require('./auth')
 const Blog = require('./blog')
 
-module.exports = (cfg) => {
+module.exports = (cfg, pkg) => {
   return {
-    auth: Auth(cfg),
-    blog: Blog(cfg)
+    auth: Auth(cfg, pkg),
+    blog: Blog(cfg, pkg)
   }
 }

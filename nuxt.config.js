@@ -44,7 +44,8 @@ module.exports = {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/auth',
-    '@nuxtjs/style-resources'
+    '@nuxtjs/style-resources',
+    'nuxt-buefy'
   ],
   /*
   ** Axios module configuration
@@ -65,6 +66,7 @@ module.exports = {
   },
   styleResources: {
     stylus: [
+      'assets/code.styl',
       'assets/common.styl'
     ]
   },

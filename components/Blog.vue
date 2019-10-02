@@ -22,7 +22,7 @@ export default {
       default: ''
     },
     date: {
-      type: Number,
+      type: [Number, String],
       default: () => new Date().getTime()
     },
     content: {

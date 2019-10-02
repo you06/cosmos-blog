@@ -3,7 +3,7 @@
     <Nav />
     <Blog
       :title="title"
-      :date="date"
+      :date="created"
       :content="content"
     />
   </div>

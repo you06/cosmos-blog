@@ -1,21 +1,66 @@
 <template>
   <div class="article-container">
-    <div class="article-tools">
-      Tools todo
+    <div class="columns">
+      <b-input
+        v-model="title"
+        placeholder="标题"
+        class="artitle-title column"
+      />
+      <b-input
+        v-model="route"
+        placeholder="路由"
+        class="artitle-route column"
+      />
     </div>
-    <div class="article-content-normal">
-      <textarea class="article-content-write" />
-    </div>
+    <admin-tools
+      class="article-tools"
+      :preview.sync="preview"
+      :display.sync="display"
+      @post="post"
+    />
+    <admin-editor
+      class="article-content"
+      :content.sync="content"
+      :preview="preview"
+      :display="display"
+    />
   </div>
 </template>
+
+<script>
+import AdminEditor from '@/components/admin/AdminEditor'
+import AdminTools from '@/components/admin/AdminTools'
+
+export default {
+  components: {
+    AdminEditor,
+    AdminTools
+  },
+  data() {
+    return {
+      preview: false,
+      display: 1,
+      title: '',
+      route: '',
+      content: ''
+    }
+  },
+  methods: {
+    post() {
+      const post = {
+        title: this.title,
+        route: this.route,
+        content: this.content
+      }
+      this.$emit('post', post)
+    }
+  }
+}
+</script>
 
 <style lang="stylus" scoped>
 .article-container
   height 100%
   display grid
-  grid-template-rows 60px auto
-  .article-content-normal
-    .article-content-write
-      width 100%
-      height 100%
+  grid-template-rows 60px 60px auto
 </style>

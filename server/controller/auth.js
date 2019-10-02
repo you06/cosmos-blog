@@ -2,7 +2,7 @@ const marked = require('marked')
 const shajs = require('sha.js')
 const { json } = require('../utils/')
 
-module.exports = function(cfg) {
+module.exports = function(cfg, pkg) {
   const auth = cfg.auth || {
     username: 'admin',
     password: 'password'
@@ -15,7 +15,8 @@ module.exports = function(cfg) {
       const valid = username === auth.username && password === passwordWithSHA
 
       if (!valid) {
-        throw new Error('Invalid username or password')
+        pkg.log.warn('Invalid username or password')
+        ctx.body = json({}, false, 'Invalid username or password')
       }
 
       ctx.body = json({

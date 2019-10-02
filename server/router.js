@@ -1,8 +1,8 @@
 const Router = require('koa-router')
 const Controller = require('./controller/')
 
-function initRoute(cfg) {
-  const ctl = Controller(cfg)
+function initRoute(cfg, pkg) {
+  const ctl = Controller(cfg, pkg)
 
   const router = new Router({
     prefix: '/api'

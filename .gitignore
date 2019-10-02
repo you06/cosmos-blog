@@ -92,3 +92,11 @@ sw.*
 
 # config
 config.json
+
+# blogs & uploads
+uploads/blogs/*
+!uploads/blogs/.gitkeep
+static/files/*
+static/images/*
+!static/files/.gitkeep
+!static/images/.gitkeep

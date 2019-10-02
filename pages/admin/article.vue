@@ -1,6 +1,8 @@
 <template>
   <div class="admin-article-container">
-    <AdminArticle />
+    <AdminArticle
+      @post="post"
+    />
   </div>
 </template>
 
@@ -11,6 +13,11 @@ export default {
   layout: 'admin',
   components: {
     AdminArticle
+  },
+  methods: {
+    post(post) {
+      console.log(post)
+    }
   }
 }
 </script>
