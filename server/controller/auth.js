@@ -9,6 +9,7 @@ module.exports = function(cfg, pkg) {
   }
   const passwordWithSHA = shajs('sha256').update(auth.password).digest('hex')
 
+  // TODO: add token
   return {
     async login(ctx, next) {
       const { username, password } = ctx.request.body
@@ -17,11 +18,11 @@ module.exports = function(cfg, pkg) {
       if (!valid) {
         pkg.log.warn('Invalid username or password')
         ctx.body = json({}, false, 'Invalid username or password')
+      } else {
+        ctx.body = json({
+          token: 'admin'
+        })
       }
-
-      ctx.body = json({
-        token: 'admin'
-      })
     },
 
     async user(ctx, next) {
