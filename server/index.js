@@ -4,7 +4,7 @@ const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 const Pkg = require('./pkg')
 const Router = require('./router')
-const cfg = require('../config.json')
+const cfg = require('../config').getConfig()
 
 const app = new Koa()
 app.use(bodyParser())
