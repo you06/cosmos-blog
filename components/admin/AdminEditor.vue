@@ -10,6 +10,7 @@
       <!-- eslint-disable vue/no-v-html -->
       <div
         v-if="preview"
+        class="editor-preview"
         v-html="marked(inContent)"
       />
       <!-- eslint-enable vue/no-v-html -->
@@ -22,7 +23,7 @@
       />
       <!-- eslint-disable vue/no-v-html -->
       <div
-        class="column"
+        class="editor-preview column"
         v-html="marked(inContent)"
       />
       <!-- eslint-enable vue/no-v-html -->
@@ -79,6 +80,8 @@ export default {
 .article-content-container
   .article-content-normal
     height 100%
+    .editor-preview
+      background #ffffff
     .article-content-write
       height 100%
       & > textarea
