@@ -66,6 +66,7 @@ module.exports = {
   },
   styleResources: {
     stylus: [
+      'assets/blog.styl',
       'assets/code.styl',
       'assets/common.styl'
     ]
