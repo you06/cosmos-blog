@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link to="/blog/hello-world" class="postcard">
+  <nuxt-link :to="`/${type}/${route}`" class="postcard">
     <h2 class="postcard-title">
       {{ title }}
     </h2>
@@ -7,7 +7,7 @@
       {{ dateStr }}
     </p>
     <p>
-      {{ content }}
+      {{ preview }}
     </p>
   </nuxt-link>
 </template>
@@ -17,11 +17,19 @@ import { formatDate } from '@/util/datetime'
 
 export default {
   props: {
+    type: {
+      type: String,
+      default: 'blog'
+    },
+    route: {
+      type: String,
+      default: 'hello-world'
+    },
     title: {
       type: String,
       default: ''
     },
-    content: {
+    preview: {
       type: String,
       default: ''
     },

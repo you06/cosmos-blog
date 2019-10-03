@@ -1,4 +1,3 @@
-const marked = require('marked')
 const { json } = require('../utils/')
 
 module.exports = function(cfg, pkg) {
@@ -15,9 +14,9 @@ module.exports = function(cfg, pkg) {
     },
     async createBlog(ctx, next) {
       const { title, route, content } = ctx.request.body
-      const success = await pkg.blog.createBlog(route, title, [tags], content)
+      const { success, msg } = await pkg.blog.createBlog(route, title, '', content)
 
-      ctx.body = json(status, status, status ? '' : 'create blog failed')
+      ctx.body = json(success, success, msg)
     }
   }
 }

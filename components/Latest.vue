@@ -1,32 +1,13 @@
 <template>
   <div class="latest">
     <PostCard
-      title="こんいちは"
-      content="初めまして、よろしくお願いいたします。"
-    />
-    <PostCard
-      title="こんいちは"
-      content="初めまして、よろしくお願いいたします。"
-    />
-    <PostCard
-      title="こんいちは"
-      content="初めまして、よろしくお願いいたします。"
-    />
-    <PostCard
-      title="こんいちは"
-      content="初めまして、よろしくお願いいたします。"
-    />
-    <PostCard
-      title="こんいちは"
-      content="初めまして、よろしくお願いいたします。"
-    />
-    <PostCard
-      title="こんいちは"
-      content="初めまして、よろしくお願いいたします。"
-    />
-    <PostCard
-      title="こんいちは"
-      content="初めまして、よろしくお願いいたします。"
+      v-for="(card, key) in cards"
+      :key="key"
+      :route="card.route"
+      :type="card.type"
+      :title="card.title"
+      :date="new Date(card.created)"
+      :preview="card.preview"
     />
   </div>
 </template>
@@ -37,6 +18,12 @@ import PostCard from '@/components/PostCard'
 export default {
   components: {
     PostCard
+  },
+  props: {
+    cards: {
+      type: Array,
+      default: () => []
+    }
   }
 }
 </script>

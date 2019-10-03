@@ -16,7 +16,11 @@ function initRoute(cfg, pkg) {
   router.get('/auth/user', ctl.auth.user)
   router.post('/auth/login', ctl.auth.login)
 
+  // all api
+  router.get('/all/list', ctl.all.getList)
+  // blog api
   router.get('/blog/:key', ctl.blog.getBlog)
+  router.post('/blog/new', ctl.blog.createBlog)
 
   return router
 }

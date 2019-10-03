@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    <Latest />
+    <Latest
+      :cards="cards"
+    />
   </div>
 </template>
 
@@ -11,6 +13,16 @@ export default {
   layout: 'base-nav',
   components: {
     Latest
+  },
+  async asyncData({ props, $axios }) {
+    const { data: card } = await $axios.get(`/all/list`)
+    if (card.status) {
+      return {
+        cards: card.data
+      }
+    } else {
+      // redirect to 404 page
+    }
   }
 }
 </script>

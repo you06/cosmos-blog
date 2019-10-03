@@ -52,7 +52,14 @@ export default {
         route: this.route,
         content: this.content
       }
-      this.$emit('post', post)
+      this.$axios
+        .post('/blog/new', post)
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((e) => {
+          console.error(e)
+        })
     }
   }
 }

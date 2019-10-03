@@ -3,6 +3,7 @@ const path = require('path')
 const chalk = require('chalk')
 const marked = require('marked')
 const highlight = require('highlight.js')
+const fsWrap = require('../utils/fs')
 
 marked.setOptions({
   highlight: (code) => {
@@ -15,6 +16,7 @@ module.exports = class {
     this.cfg = cfg
     this.path = './uploads/blogs'
     this.blogs = {}
+    this.blogList = []
 
     this.initCfg()
     this.initBlogs()
@@ -50,11 +52,13 @@ module.exports = class {
     const contents = await Promise.all(promises)
     for (const content of contents) {
       const { success, blog } = this.parseBlog(content.data)
+      if (!this.validBlog(blog.route, blog.title, blog.tags, blog.content)) continue
       blog.file = content.file
 
       if (success) {
         if (!this.blogs[blog.route]) {
           this.blogs[blog.route] = blog
+          this.blogList.push(blog)
         } else {
           const msg = `${blog.file} and ${this.blogs[blog.route].file} have same route, fix it and restart` 
           console.error(chalk.red(msg))
@@ -129,6 +133,13 @@ module.exports = class {
     }
   }
 
+  validBlog(route, title, tags, content) {
+    if (!route) {
+      return false
+    }
+    return true
+  }
+
   getBlog(route) {
     if (this.blogs[route]) {
       const blog = this.blogs[route]
@@ -136,6 +147,7 @@ module.exports = class {
         title: blog.title,
         created: blog.created,
         updated: blog.updated,
+        tags: blog.tags,
         content: blog.content
       }
     } else {
@@ -143,7 +155,78 @@ module.exports = class {
     }
   }
 
+  getList() {
+    // TODO: make a preview from content
+    return this.blogList.map((blog) => {
+      return {
+        type: 'blog',
+        route: blog.route,
+        title: blog.title,
+        created: blog.created,
+        updated: blog.updated,
+        tags: blog.tags,
+        preview: ''
+      }
+    })
+  }
+
   async createBlog(route, title, tags, content) {
-    return true
+    tags = tags.split(',')
+    if (!this.validBlog(route, title, tags, content)) {
+      return {
+        success: false,
+        msg: 'invalid blog'
+      }
+    }
+    if (this.blogs[route]) {
+      return {
+        success: false,
+        msg: `blog with route ${route} already exist`
+      }
+    }
+    const now = new Date()
+
+    const storage =
+`title: ${title}
+route: ${route}
+createdAt: ${now.toISOString()}
+updatedAt: ${now.toISOString()}
+tags: ${tags.join(',')}
+--------------------------
+${content}`
+
+    const filename = path.join(this.path, `${route}.md`)
+    const exist = await fsWrap.exists(filename)
+    if (exist) {
+      return {
+        success: false,
+        msg: `${filename} already exist`
+      }
+    }
+    const writeErr = await fsWrap.writeFile(filename, storage)
+    if (writeErr) {
+      return {
+        success: false,
+        msg: `error occured while writing file ${writeErr.toString()}`
+      }
+    }
+
+    const blog = {
+      title,
+      route,
+      created: now,
+      updated: now,
+      tags,
+      content: marked(content),
+      raw: content
+    }
+    
+    this.blogList.push(blog)
+    this.blogs[route] = blog
+
+    return {
+      success: true,
+      msg: ''
+    }
   }
 }
