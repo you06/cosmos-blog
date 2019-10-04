@@ -1,13 +1,15 @@
-const marked = require('marked')
-const shajs = require('sha.js')
-const { json } = require('../utils/')
+const { json, genToken, hashPasswd } = require('../utils/')
+
+const expire = 1 * 24 * 3600 * 1000
+const tokenLength = 20
 
 module.exports = function(cfg, pkg) {
   const auth = cfg.auth || {
     username: 'admin',
     password: 'password'
   }
-  const passwordWithSHA = shajs('sha256').update(auth.password).digest('hex')
+  const passwordWithSHA = hashPasswd(auth.password)
+  const sessions = {}
 
   // TODO: add token
   return {
@@ -19,16 +21,31 @@ module.exports = function(cfg, pkg) {
         pkg.log.warn('Invalid username or password')
         ctx.body = json({}, false, 'Invalid username or password')
       } else {
+        const token = genToken(tokenLength)
+        const now = new Date()
+        sessions[token] = {
+          expire: new Date(now.getTime() + expire)
+        }
         ctx.body = json({
-          token: 'admin'
+          token
         })
       }
     },
 
     async user(ctx, next) {
-      ctx.body = json({
-        user: 'admin'
-      })
+      const { authorization } = ctx.request.header
+      if (!authorization) {
+        ctx.body = json(false, false, 'no token')
+      } else if (authorization.split(' ').length < 2) {
+        ctx.body = json(false, false, 'expired token')
+      } else {
+        const token = authorization.split(' ')[1]
+        if (sessions[token] && sessions[token].expire > new Date()) {
+          ctx.body = json({ user: 'admin' })
+        } else {
+          ctx.body = json(false, false, 'expired token')
+        }
+      }
     }
   }
 }

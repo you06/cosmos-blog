@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import shajs from 'sha.js'
+
 export default {
   name: 'Login',
   middleware: 'auth',
@@ -27,13 +29,23 @@ export default {
   },
   methods: {
     async submit() {
+      const data = {
+        username: this.login.username,
+        password: this.hashPasswd(this.login.password)
+      }
       await this.$auth.login({
-        data: this.login
-      }).then(() => {
-        alert('Successfully connected')
+        data
+      }).then((res) => {
+        // do nothing
       }).catch((err) => {
         console.log('Error while disconnecting: ' + err.message)
       })
+    },
+    hashPasswd(password) {
+      for (let i = 0; i < 16384; i++) {
+        password = shajs('sha256').update(password).digest('hex')
+      }
+      return password
     }
   }
 }
