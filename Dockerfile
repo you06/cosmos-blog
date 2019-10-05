@@ -9,7 +9,10 @@ RUN apk update && apk upgrade
 
 # copy the app, note .dockerignore
 COPY . /usr/src/app/
-RUN yarn
+
+# install dependencies and build 
+RUN yarn && \
+    yarn build
 
 # expose 3000 on container
 EXPOSE 3000
@@ -17,10 +20,6 @@ EXPOSE 3000
 # set app service and port
 ENV HOST=0.0.0.0
 ENV PORT=3000
-ENV API_HOST=127.0.0.1
-ENV API_PORT=3000
-
-RUN chmod +x run.sh
 
 # start the app
-CMD [ "./run.sh" ]
+CMD [ "yarn", "start" ]
