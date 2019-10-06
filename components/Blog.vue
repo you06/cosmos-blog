@@ -41,6 +41,8 @@ export default {
 <style lang="stylus" scoped>
 .blog-title
   padding-top 20px
+  font-size 35px
+  font-weight bold
   color #333
 .blog-date
   color #666

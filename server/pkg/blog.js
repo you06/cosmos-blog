@@ -101,7 +101,7 @@ module.exports = class {
     const metas = lines.slice(0, i)
     const raw = lines.slice(i + 1, lines.length).join('\n')
     blog.raw = raw
-    blog.content = marked(raw)
+    blog.content = marked(raw).replace(/<a\s/g, '<a target="_blank" rel="nofollow"')
     
     for (const meta of metas) {
       const titleMeta = meta.match(/^title:\s(.*)$/)
@@ -217,7 +217,7 @@ ${content}`
       created: now,
       updated: now,
       tags,
-      content: marked(content),
+      content: marked(content).replace(/<a\s/g, '<a target="_blank" rel="nofollow"'),
       raw: content
     }
     

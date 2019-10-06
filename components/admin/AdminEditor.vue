@@ -11,7 +11,7 @@
       <div
         v-if="preview"
         class="editor-preview"
-        v-html="marked(inContent)"
+        v-html="renderContent"
       />
       <!-- eslint-enable vue/no-v-html -->
     </div>
@@ -24,7 +24,7 @@
       <!-- eslint-disable vue/no-v-html -->
       <div
         class="editor-preview column"
-        v-html="marked(inContent)"
+        v-html="renderContent"
       />
       <!-- eslint-enable vue/no-v-html -->
     </div>
@@ -62,6 +62,11 @@ export default {
       inContent: ''
     }
   },
+  computed: {
+    renderContent() {
+      return marked(this.inContent).replace(/<a\s/g, '<a target="_blank" rel="nofollow"')
+    }
+  },
   watch: {
     inContent(newVal) {
       this.$emit('update:content', newVal)
@@ -69,9 +74,6 @@ export default {
   },
   created() {
     this.inContent = this.content
-  },
-  methods: {
-    marked
   }
 }
 </script>
