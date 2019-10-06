@@ -39,7 +39,6 @@
     display flex
     justify-content flex-start
     align-items center
-    align-items left
     text-align left
     li
       padding-left 30px
@@ -47,4 +46,8 @@
         padding-left 0
       a
         font-weight bold
+    @media screen and (max-width: 800px)
+      justify-content flex-end
+      li
+        padding-left 1em
 </style>

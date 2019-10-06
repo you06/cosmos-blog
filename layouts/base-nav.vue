@@ -44,5 +44,10 @@ export default {
       padding 15px
     .layout-body-right
       width 100%
-      padding 15px
+      padding 15px 40px
+    @media screen and (max-width: 800px)
+      .layout-body-left
+        display none
+      .layout-body-right
+        padding 15px 0
 </style>
