@@ -1,4 +1,6 @@
 {
-  "username": "senpai",
-  "password": "114514"
+  "auth": {
+    "username": "senpai",
+    "password": "114514"
+  }
 }
