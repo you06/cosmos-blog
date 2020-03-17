@@ -14,6 +14,18 @@
         >
       </a>
     </div>
+    <div
+      v-if="$store.state.record.has"
+      class="footer-block"
+      :class="{
+        ad: block,
+        ads: block,
+        advert: block,
+        advertisement: block
+      }"
+    >
+      {{ $store.state.record.content }}
+    </div>
   </div>
 </template>
 
@@ -26,6 +38,11 @@ export default {
     return {
       cc: 'by-nc',
       creativeCommons
+    }
+  },
+  computed: {
+    block() {
+      return this.$store.state.record.block
     }
   }
 }

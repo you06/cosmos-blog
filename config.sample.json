@@ -2,5 +2,9 @@
   "auth": {
     "username": "senpai",
     "password": "114514"
+  },
+  "record": {
+    "block": true,
+    "content": "京公网安备1919810号"
   }
 }

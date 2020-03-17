@@ -22,6 +22,8 @@ function initRoute(cfg, pkg) {
   router.get('/blog/:key', ctl.blog.getBlog)
   router.post('/blog/new', ctl.blog.createBlog)
 
+  // record api
+  router.get('/record', ctl.record.getRecord)
   return router
 }
 
